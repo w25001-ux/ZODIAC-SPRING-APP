@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zodiac Sign Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>Zodiac Sign Finder</h1>
+      <p>Enter your birth month and day to see your zodiac sign.</p>
+    </section>
+
+    <section class="card">
+      <h2>Find your sign</h2>
+      <form class="sign-form" id="zodiac-form">
+        <label for="month">Birth month</label>
+        <select id="month" name="month" required>
+          <option value="">Select month</option>
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+
+        <label for="day">Birth day</label>
+        <input id="day" name="day" type="number" min="1" max="31" placeholder="e.g. 14" required />
+
+        <button type="submit">Get my sign</button>
+      </form>
+      <p class="help-text">Enter your birthday and get your zodiac sign instantly on this page.</p>
+      <p class="result" id="result" aria-live="polite"></p>
+    </section>
+
+    <section class="grid">
+      <a href="pages/aries.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Aries</h3>
+          <p>Mar 21 - Apr 19</p>
+        </article>
+      </a>
+      <a href="pages/taurus.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Taurus</h3>
+        <p>Apr 20 - May 20</p>
+      </article>
+      </a>
+      <a href="pages/gemini.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Gemini</h3>
+          <p>May 21 - Jun 20</p>
+        </article>
+      </a>
+      <a href="pages/cancer.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Cancer</h3>
+          <p>Jun 21 - Jul 22</p>
+        </article>
+      </a>
+      <a href="pages/leo.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Leo</h3>
+        <p>Jul 23 - Aug 22</p>
+      </article>
+      </a>
+      <a href="pages/virgo.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Virgo</h3>
+          <p>Aug 23 - Sep 22</p>
+        </article>
+      </a>
+      <a href="pages/libra.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Libra</h3>
+          <p>Sep 23 - Oct 22</p>
+        </article>
+      </a>
+      <a href="pages/scorpio.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Scorpio</h3>
+          <p>Oct 23 - Nov 21</p>
+        </article>
+      </a>
+      <a href="pages/sagittarius.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Sagittarius</h3>
+          <p>Nov 22 - Dec 21</p>
+        </article>
+      </a>
+      <a href="pages/capricorn.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Capricorn</h3>
+          <p>Dec 22 - Jan 19</p>
+        </article>
+      </a>
+      <a href="pages/aquarius.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Aquarius</h3>
+          <p>Jan 20 - Feb 18</p>
+        </article>
+      </a>
+      <a href="pages/pisces.html" class="sign-link">
+        <article class="sign-card">
+          <h3>Pisces</h3>
+          <p>Feb 19 - Mar 20</p>
+        </article>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <p>Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
