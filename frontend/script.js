@@ -72,7 +72,13 @@ form.addEventListener("submit", function (event) {
   }
 
   const sign = getZodiacSign(month, day);
-  
+
+  fetch(`http://localhost:8081/zodiacs/search?name=${sign.name}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  });
+
   console.log("sign =", sign);
 
   if (!sign) {
