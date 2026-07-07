@@ -1,4 +1,13 @@
+
 console.log("script.js loaded");
+fetch("http://localhost:8081/zodiacs")
+  .then(response => response.json())
+  .then(data => {
+    console.log("Backend data:", data);
+  })
+  .catch(error => {
+    console.error("Backend error:", error);
+  });
 
 const form = document.getElementById("zodiac-form");
 const result = document.getElementById("result");
