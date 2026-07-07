@@ -1,13 +1,13 @@
 
 console.log("script.js loaded");
-fetch("http://localhost:8081/zodiacs")
-  .then(response => response.json())
-  .then(data => {
-    console.log("Backend data:", data);
-  })
-  .catch(error => {
-    console.error("Backend error:", error);
-  });
+// fetch("http://localhost:8081/zodiacs")
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log("Backend data:", data);
+//   })
+//   .catch(error => {
+//     console.error("Backend error:", error);
+//   });
 
 const form = document.getElementById("zodiac-form");
 const result = document.getElementById("result");
@@ -80,40 +80,72 @@ form.addEventListener("submit", function (event) {
     return;
   }
 
-  const sign = getZodiacSign(month, day);
-
-  fetch(`http://localhost:8081/zodiacs/search?name=${sign.name}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  });
-
-  console.log("sign =", sign);
-
-  if (!sign) {
-    result.classList.remove("hidden");
-    result.innerHTML = `
-      <p class="error">Could not find a zodiac sign for that date.</p>
-    `;
-    return;
-  }
-
   result.classList.remove("hidden");
   result.innerHTML = `
     <p>Finding your zodiac sign...</p>
   `;
 
-  setTimeout(function () {
-    result.innerHTML = `
-      <h3>Your Zodiac Sign</h3>
-      <p class="result-sign">${sign.icon} ${sign.name}</p>
-      <p>${sign.date}</p>
-      <p>Element: ${sign.element}</p>
-      <a href="${sign.page}" class="detail-button">View Details</a>
-    `;
-  }, 500);
+  fetch(`http://localhost:8081/zodiacs/birthday?month=${month}&day=${day}`)
+    .then(response => response.json())
+    .then(sign => {
+      console.log("API sign =", sign);
+
+      result.innerHTML = `
+        <h3>Your Zodiac Sign</h3>
+        <p class="result-sign">${sign.icon} ${sign.name}</p>
+        <p>${sign.date}</p>
+        <p>Element: ${sign.element}</p>
+        <a href="pages/${sign.name.toLowerCase()}.html" class="detail-button">
+          View Details
+        </a>
+      `;
+    })
+    .catch(error => {
+      console.error("API error:", error);
+      result.innerHTML = `
+        <p class="error">Could not connect to backend API.</p>
+      `;
+    });
 });
 
 exploreBtn.addEventListener("click", function () {
   grid.classList.toggle("hidden");
 });
+
+//   const sign = getZodiacSign(month, day);
+
+//   fetch(`http://localhost:8081/zodiacs/search?name=${sign.name}`)
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log(data);
+//   });
+
+//   console.log("sign =", sign);
+
+//   if (!sign) {
+//     result.classList.remove("hidden");
+//     result.innerHTML = `
+//       <p class="error">Could not find a zodiac sign for that date.</p>
+//     `;
+//     return;
+//   }
+
+//   result.classList.remove("hidden");
+//   result.innerHTML = `
+//     <p>Finding your zodiac sign...</p>
+//   `;
+
+//   setTimeout(function () {
+//     result.innerHTML = `
+//       <h3>Your Zodiac Sign</h3>
+//       <p class="result-sign">${sign.icon} ${sign.name}</p>
+//       <p>${sign.date}</p>
+//       <p>Element: ${sign.element}</p>
+//       <a href="${sign.page}" class="detail-button">View Details</a>
+//     `;
+//   }, 500);
+// });
+
+// exploreBtn.addEventListener("click", function () {
+//   grid.classList.toggle("hidden");
+// });
