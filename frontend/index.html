@@ -39,10 +39,13 @@
         <button type="submit">Get my sign</button>
       </form>
       <p class="help-text">Enter your birthday and get your zodiac sign instantly on this page.</p>
-      <p class="result" id="result" aria-live="polite"></p>
+      <div class="result hidden" id="result" aria-live="polite"></div>
+      <button type="button" class="explore-btn" id="explore-btn">
+        Explore all zodiac signs
+      </button>
     </section>
 
-    <section class="grid">
+    <section class="grid hidden" id="zodiac-grid">
       <a href="pages/aries.html" class="sign-link">
         <article class="sign-card">
           <h3>Aries</h3>
