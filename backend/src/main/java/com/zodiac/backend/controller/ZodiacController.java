@@ -1,6 +1,7 @@
 package com.zodiac.backend.controller;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zodiac.backend.entity.Zodiac;
 import com.zodiac.backend.service.ZodiacService;
+
+@CrossOrigin(origins="*")
 @RestController
 public class ZodiacController {
 
@@ -19,6 +22,10 @@ public class ZodiacController {
 
     public ZodiacController(ZodiacService zodiacService) {
         this.zodiacService = zodiacService;
+    }
+    @GetMapping("/zodiacs/birthday")
+    public Zodiac getByBirthday(@RequestParam int month, @RequestParam int day) {
+        return zodiacService.getZodiacByBirthday(month, day);
     }
 
     @GetMapping("/zodiacs")
