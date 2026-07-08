@@ -202,6 +202,44 @@ body {
   margin: 0 auto 20px;
 }
 
+.card-image{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+
+}
+
+.detail-image{
+
+    width:250px;
+
+    display:block;
+
+    margin:auto;
+
+    margin-bottom:30px;
+
+}
+
+.sign-card{
+
+    transition:.3s;
+
+}
+
+.sign-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
 @media (max-width: 560px) {
   .page {
     padding: 20px 16px;

@@ -154,7 +154,7 @@ function loadDetailPage() {
     .then(response => response.json())
     .then(zodiac => {
 
-      // document.getElementById("icon").src = "../Images/" + zodiac.icon;
+      document.getElementById("icon").src = "../Images/" + zodiac.icon;
       document.getElementById("name").textContent = zodiac.name;
       document.getElementById("dateRange").textContent = zodiac.dateRange;
       document.getElementById("element").textContent = zodiac.element;
