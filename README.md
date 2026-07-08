@@ -27,8 +27,8 @@ A web application to discover your zodiac sign by birthday.
 - 🍃 Spring Boot
 - 🔌 REST API
 
-### 🗄️ Database
-- 🐬 MySQL
+<!-- ### 🗄️ Database
+- 🐬 MySQL -->
 
 ### 🧰 Tools
 - 💻 VS Code
