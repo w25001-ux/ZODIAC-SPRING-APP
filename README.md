@@ -88,10 +88,15 @@ Use **Live Server**
 
 ### 🏠 Home
 
-(画像)
+<img width="559" height="862" alt="スクリーンショット 2026-07-08 230842" src="https://github.com/user-attachments/assets/d40a8439-3bdc-485c-b435-633e2cd35ff6" />
+
 
 ### ♏ Detail Page
 
-(画像)
+<img width="1462" height="654" alt="スクリーンショット 2026-07-08 230704" src="https://github.com/user-attachments/assets/9c8abbaa-8bf0-4713-93ce-27fc2cde4212" />
+#
+<img width="416" height="854" alt="スクリーンショット 2026-07-08 230815" src="https://github.com/user-attachments/assets/aa24a705-a2ed-419f-b2bc-24eaabf85013" />
+
+
 
 ---
