@@ -94,8 +94,8 @@ Use **Live Server**
 ### ♏ Detail Page
 
 <img width="1462" height="654" alt="スクリーンショット 2026-07-08 230704" src="https://github.com/user-attachments/assets/9c8abbaa-8bf0-4713-93ce-27fc2cde4212" />
-#
-<img width="416" height="854" alt="スクリーンショット 2026-07-08 230815" src="https://github.com/user-attachments/assets/aa24a705-a2ed-419f-b2bc-24eaabf85013" />
+
+# <img width="416" height="854" alt="スクリーンショット 2026-07-08 230815" src="https://github.com/user-attachments/assets/aa24a705-a2ed-419f-b2bc-24eaabf85013" />
 
 
 
