@@ -13,7 +13,24 @@ const form = document.getElementById("zodiac-form");
 const result = document.getElementById("result");
 const grid = document.getElementById("zodiac-grid");
 const exploreBtn = document.getElementById("explore-btn");
+function getZodiacSymbol(name) {
+  const symbols = {
+    Aries: "♈",
+    Taurus: "♉",
+    Gemini: "♊",
+    Cancer: "♋",
+    Leo: "♌",
+    Virgo: "♍",
+    Libra: "♎",
+    Scorpio: "♏",
+    Sagittarius: "♐",
+    Capricorn: "♑",
+    Aquarius: "♒",
+    Pisces: "♓"
+  };
 
+  return symbols[name] || "";
+}
 // function getZodiacSign(month, day) {
 //   if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
 //     return { name: "Aries", icon: "♈", date: "March 21 - April 19", page: "pages/aries.html", element: "Fire" };
@@ -89,15 +106,27 @@ if (form) {
     fetch(`http://localhost:8081/zodiacs/birthday?month=${month}&day=${day}`)
       .then(response => response.json())
       .then(zodiac => {
+        // result.innerHTML = `
+        //   <h3>Your Zodiac Sign</h3>
+        //   <p class="result-sign">${zodiac.icon} ${zodiac.name}</p>
+        //   <p>${zodiac.dateRange}</p>
+        //   <p>Element: ${zodiac.element}</p>
+        //   <a href="pages/${zodiac.name.toLowerCase()}.html" class="detail-button">
+        //     View Details
+        //   </a>
+        // `;
         result.innerHTML = `
-          <h3>Your Zodiac Sign</h3>
-          <p class="result-sign">${zodiac.icon} ${zodiac.name}</p>
-          <p>${zodiac.dateRange}</p>
-          <p>Element: ${zodiac.element}</p>
-          <a href="pages/${zodiac.name.toLowerCase()}.html" class="detail-button">
-            View Details
-          </a>
-        `;
+          <div class="result-box">
+          <div class="result-symbol">${getZodiacSymbol(zodiac.name)}</div>
+          <h3>${zodiac.name}</h3>
+          <p class="result-date">${zodiac.dateRange}</p>
+          <p class="result-element">Element: ${zodiac.element}</p>
+
+        <a href="pages/${zodiac.page}" class="detail-button">
+         View Details
+      </a>
+      </div>
+     `;
       })
       .catch(error => {
         console.error("API error:", error);
@@ -107,42 +136,71 @@ if (form) {
 
   
 
-if (exploreBtn) {
-  exploreBtn.addEventListener("click", function () {
+// if (exploreBtn) {
+//   exploreBtn.addEventListener("click", function () {
 
-    fetch("http://localhost:8081/zodiacs")
-      .then(response => response.json())
-      .then(zodiacs => {
+//     fetch("http://localhost:8081/zodiacs")
+//       .then(response => response.json())
+//       .then(zodiacs => {
 
-        grid.innerHTML = "";
+//         grid.innerHTML = "";
 
-        zodiacs.forEach(zodiac => {
+//         zodiacs.forEach(zodiac => {
 
-          grid.innerHTML += `
-            <a href="pages/${zodiac.page}" class="sign-link">
-              <article class="sign-card">
-                <h3>${zodiac.name}</h3>
-                <p>${zodiac.dateRange}</p>
-              </article>
-            </a>
-          `;
+//          grid.innerHTML += `
+//           <a href="pages/${zodiac.page}" class="sign-link">
+//             <article class="sign-card">
+//               <img class="sign-icon-img" src="Images/${zodiac.icon}" alt="${zodiac.name}">
+//               // <h3>${zodiac.name}</h3>
+//               // <p>${zodiac.dateRange}</p>
+//               // <p>${zodiac.element}</p>
+//             </article>
+//           </a>
+//         `;
 
-        });
+//         });
 
-        grid.classList.remove("hidden");
+//         grid.classList.remove("hidden");
 
-      })
-      .catch(error => {
-        console.error(error);
-      });
+//       })
+//       .catch(error => {
+//         console.error(error);
+//       });
 
-  });
-}
+//   });
+// }
 
 // =========================
 // Detail Page
 // =========================
+function loadZodiacCards() {
+  fetch("http://localhost:8081/zodiacs")
+    .then(response => response.json())
+    .then(zodiacs => {
+      grid.innerHTML = "";
 
+      zodiacs.forEach(zodiac => {
+        grid.innerHTML += `
+          <a href="pages/${zodiac.page}" class="sign-link">
+            <article class="sign-card">
+              <img class="sign-icon-img"
+                   src="Images/${zodiac.icon}"
+                   alt="${zodiac.name}">
+            </article>
+          </a>
+        `;
+      });
+
+      grid.classList.remove("hidden");
+    })
+    .catch(error => {
+      console.error("Zodiac cards error:", error);
+    });
+}
+
+if (grid) {
+  loadZodiacCards();
+}
 function loadDetailPage() {
 
   const pageName = window.location.pathname
