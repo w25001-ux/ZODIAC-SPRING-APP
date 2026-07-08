@@ -41,7 +41,7 @@ A web application to discover your zodiac sign by birthday.
 
 ## 👥 Team
 
-### 🙋 THI HA AUNG
+### 🙋 AUNG THI HA
 **Frontend Developer**
 
 - 🎨 UI Design
