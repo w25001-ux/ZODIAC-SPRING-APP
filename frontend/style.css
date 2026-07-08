@@ -148,14 +148,17 @@ body {
 
 .back-button:hover {
   background: #3730a3;
+  transform: translateY(-5px);
+  transition: 0.3s;
 }
 
 .detail-card {
   color:#333;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 30px;
   border-radius: 20px;
+  transition: 0.3s;
   background: white;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
@@ -187,6 +190,16 @@ body {
 
 .detail-card ul {
   padding-left: 22px;
+}
+
+.detail-card:hover {
+  transform: translateY(-5px);
+}
+
+.zodiac-image {
+  width:150px;
+  display:block;
+  margin: 0 auto 20px;
 }
 
 @media (max-width: 560px) {

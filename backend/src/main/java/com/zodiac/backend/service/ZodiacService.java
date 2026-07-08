@@ -16,7 +16,7 @@ public class ZodiacService {
         this.zodiacRepository = zodiacRepository;
     }
     public Zodiac getZodiacByName(String name) {
-    return zodiacRepository.findByName(name).orElse(null);
+    return zodiacRepository.findByNameIgnoreCase(name).orElse(null);
     }
     public List<Zodiac> getAllZodiacs() {
         return zodiacRepository.findAll();
@@ -65,7 +65,7 @@ public Zodiac getZodiacByBirthday(int month, int day) {
     else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) name = "Aquarius";
     else if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) name = "Pisces";
 
-    return zodiacRepository.findByName(name).orElse(null);
+    return zodiacRepository.findByNameIgnoreCase(name).orElse(null);
 }
 public void deleteZodiac(Long id) {
     zodiacRepository.deleteById(id);

@@ -9,5 +9,7 @@ import com.zodiac.backend.entity.Zodiac;
 
 @Repository
 public interface ZodiacRepository extends JpaRepository<Zodiac, Long> {
-Optional<Zodiac> findByName(String name);
+
+    Optional<Zodiac> findByName(String name);
+    Optional<Zodiac> findByNameIgnoreCase(String name);
 }
