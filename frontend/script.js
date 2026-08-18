@@ -1,5 +1,8 @@
 
 console.log("script.js loaded");
+const API_BASE_URL = ["localhost", "127.0.0.1"].includes(window.location.hostname)
+  ? "http://localhost:8081"
+  : "";
 // fetch("http://localhost:8081/zodiacs")
 //   .then(response => response.json())
 //   .then(data => {
@@ -30,6 +33,33 @@ function getZodiacSymbol(name) {
   };
 
   return symbols[name] || "";
+}
+
+function isValidDate(month, day) {
+  if (!Number.isInteger(month) || !Number.isInteger(day)) return false;
+
+  const date = new Date(2024, month - 1, day);
+  return date.getFullYear() === 2024
+    && date.getMonth() === month - 1
+    && date.getDate() === day;
+}
+
+function requireSuccessfulResponse(response) {
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+  return response.json();
+}
+
+function showError(message) {
+  if (!result) return;
+  result.classList.remove("hidden");
+  result.innerHTML = `<p class="error"></p>`;
+  result.querySelector(".error").textContent = message;
+}
+
+function safeFileName(value) {
+  return typeof value === "string" && /^[a-z0-9._-]+$/i.test(value) ? value : "";
 }
 // function getZodiacSign(month, day) {
 //   if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
@@ -90,11 +120,8 @@ if (form) {
     const month = Number(document.getElementById("month").value);
     const day = Number(document.getElementById("day").value);
 
-    if (!month || month < 1 || month > 12 || !day || day < 1 || day > 31) {
-      result.classList.remove("hidden");
-      result.innerHTML = `
-        <p class="error">Please enter a valid month and day.</p>
-      `;
+    if (!isValidDate(month, day)) {
+      showError("Please enter a valid calendar date.");
       return;
     }
 
@@ -103,8 +130,8 @@ if (form) {
       <p>Finding your zodiac sign...</p>
     `;
 
-    fetch(`http://localhost:8081/zodiacs/birthday?month=${month}&day=${day}`)
-      .then(response => response.json())
+    fetch(`${API_BASE_URL}/zodiacs/birthday?month=${month}&day=${day}`)
+      .then(requireSuccessfulResponse)
       .then(zodiac => {
         // result.innerHTML = `
         //   <h3>Your Zodiac Sign</h3>
@@ -117,19 +144,22 @@ if (form) {
         // `;
         result.innerHTML = `
           <div class="result-box">
-          <div class="result-symbol">${getZodiacSymbol(zodiac.name)}</div>
-          <h3>${zodiac.name}</h3>
-          <p class="result-date">${zodiac.dateRange}</p>
-          <p class="result-element">Element: ${zodiac.element}</p>
+            <div class="result-symbol"></div>
+            <h3></h3>
+            <p class="result-date"></p>
+            <p class="result-element"></p>
+            <a class="detail-button">View Details</a>
+          </div>`;
 
-        <a href="pages/${zodiac.page}" class="detail-button">
-         View Details
-      </a>
-      </div>
-     `;
+        result.querySelector(".result-symbol").textContent = getZodiacSymbol(zodiac.name);
+        result.querySelector("h3").textContent = zodiac.name;
+        result.querySelector(".result-date").textContent = zodiac.dateRange;
+        result.querySelector(".result-element").textContent = `Element: ${zodiac.element}`;
+        result.querySelector(".detail-button").href = `pages/${safeFileName(zodiac.page)}`;
       })
       .catch(error => {
         console.error("API error:", error);
+        showError("Could not reach the zodiac service. Please make sure the backend is running.");
       });
   });
 }
@@ -174,27 +204,37 @@ if (form) {
 // Detail Page
 // =========================
 function loadZodiacCards() {
-  fetch("http://localhost:8081/zodiacs")
-    .then(response => response.json())
+  fetch(`${API_BASE_URL}/zodiacs`)
+    .then(requireSuccessfulResponse)
     .then(zodiacs => {
       grid.innerHTML = "";
 
       zodiacs.forEach(zodiac => {
-        grid.innerHTML += `
-          <a href="pages/${zodiac.page}" class="sign-link">
-            <article class="sign-card">
-              <img class="sign-icon-img"
-                   src="Images/${zodiac.icon}"
-                   alt="${zodiac.name}">
-            </article>
-          </a>
-        `;
+        const link = document.createElement("a");
+        link.href = `pages/${safeFileName(zodiac.page)}`;
+        link.className = "sign-link";
+
+        const card = document.createElement("article");
+        card.className = "sign-card";
+
+        const image = document.createElement("img");
+        image.className = "sign-icon-img";
+        image.src = `Images/${safeFileName(zodiac.icon)}`;
+        image.alt = zodiac.name;
+
+        card.appendChild(image);
+        link.appendChild(card);
+        grid.appendChild(link);
       });
 
       grid.classList.remove("hidden");
     })
     .catch(error => {
       console.error("Zodiac cards error:", error);
+      if (grid) {
+        grid.classList.remove("hidden");
+        grid.textContent = "Could not load zodiac signs. Please make sure the backend is running.";
+      }
     });
 }
 
@@ -208,8 +248,8 @@ function loadDetailPage() {
     .pop()
     .replace(".html", "");
 
-  fetch(`http://localhost:8081/zodiacs/search?name=${pageName}`)
-    .then(response => response.json())
+  fetch(`${API_BASE_URL}/zodiacs/search?name=${pageName}`)
+    .then(requireSuccessfulResponse)
     .then(zodiac => {
 
       document.getElementById("icon").src = "../Images/" + zodiac.icon;
@@ -227,6 +267,10 @@ function loadDetailPage() {
     })
     .catch(error => {
       console.error("Detail API error:", error);
+      const nameElement = document.getElementById("name");
+      if (nameElement) {
+        nameElement.textContent = "Could not load zodiac details";
+      }
     });
 
 }

@@ -1,0 +1,5 @@
+.git/
+.github/
+.maven-cache/
+backend/
+Database/

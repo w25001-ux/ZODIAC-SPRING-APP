@@ -62,13 +62,22 @@ A web application to discover your zodiac sign by birthday.
 
 ### ⚙️ Backend
 
-```bash
-mvn spring-boot:run
+1. Install Java 21 and MySQL.
+2. Run `Database/zodiac.sql` in MySQL.
+3. Set the database password in the terminal (do not save it in Git):
+
+```powershell
+$env:DB_PASSWORD="your-mysql-password"
+cd backend
+.\mvnw.cmd spring-boot:run
 ```
+
+Optional settings are `DB_URL` and `DB_USERNAME`. Their defaults are
+`jdbc:mysql://localhost:3306/zodiac_db` and `root`.
 
 ### 🌐 Frontend
 
-Open `index.html`
+After the backend starts on port `8081`, open `frontend/index.html`
 
 or
 
